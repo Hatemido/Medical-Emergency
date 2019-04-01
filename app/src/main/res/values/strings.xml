@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Medical Emergency</string>
+    <string name="title_activity_home_acrivity">Medical Emergency</string>
+    <string name="title_activity_doctor">Doctors</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
