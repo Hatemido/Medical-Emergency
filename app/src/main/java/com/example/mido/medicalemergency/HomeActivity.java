@@ -16,13 +16,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.ResultCallbacks;
 import com.google.android.gms.common.api.Status;
-
-import java.net.URI;
-import java.net.URL;
+import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -56,13 +52,13 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
     @Override
     protected void onStart() {
         super.onStart();
-        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
-        if(opr.isDone()){
-            GoogleSignInResult result=opr.get();
-            handleSignInResult(result);
-        }else {
-            goLogInActivity();
-        }
+
+//        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
+//        if(opr.isDone()){
+//            GoogleSignInResult result=opr.get();
+//            handleSignInResult(result);
+//        }
+
     }
 
     void LogOutFunction(){
@@ -70,6 +66,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
             @Override
             public void onResult(@NonNull Status status) {
                 if(status.isSuccess()){
+                    FirebaseAuth.getInstance().signOut();
                     goLogInActivity();
                 }else{
                     Toast.makeText(getApplicationContext() , "error while Log out" , Toast.LENGTH_SHORT).show();
