@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "858561154665-o0iduvq1f0fecgfd0l1met241r1nvmqk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mido.medicalemergency",
+            "certificate_hash": "db8ef9d521dc5a864db301bf5bad63a5397fc01a"
+          }
+        },
+        {
+          "client_id": "858561154665-g9fs5578pmhpra6cjumfvkdfr0ciqme1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mido.medicalemergency",
+            "certificate_hash": "d76e55c1749cb4741eda7759f7c40b78d45b3bad"
+          }
+        },
+        {
           "client_id": "858561154665-v5jkrlutn132dm5hhfup3ns7bfi6gfti.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +45,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "858561154665-v5jkrlutn132dm5hhfup3ns7bfi6gfti.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

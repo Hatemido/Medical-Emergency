@@ -3,4 +3,6 @@
     <color name="colorPrimary">#203848</color>
     <color name="colorPrimaryDark">#203848</color>
     <color name="colorAccent">#1AC6B9</color>
+    <color name="text_view_color">#1AC6B9</color>
+    <color name="google_color">#E5193A</color>
 </resources>
