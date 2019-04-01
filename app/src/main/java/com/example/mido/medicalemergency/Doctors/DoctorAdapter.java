@@ -47,7 +47,7 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorView
         void onDoctorClicked(int position);
     }
 
-    class DoctorViewHolder extends RecyclerView.ViewHolder{
+    class DoctorViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.doctorName)
         TextView doctorNameTextView;
         @BindView(R.id.doctorType)
@@ -55,12 +55,18 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorView
         public DoctorViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
+            itemView.setOnClickListener(this);
         }
 
         void bind(int position) {
             Doctor doctor = doctorsList.get(position);
             doctorNameTextView.setText(doctor.getDoctorName());
             doctorTypeTextView.setText(doctor.getType());
+        }
+
+        @Override
+        public void onClick(View view) {
+
         }
     }
 }

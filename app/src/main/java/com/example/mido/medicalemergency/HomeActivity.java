@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import com.example.mido.medicalemergency.Doctors.DoctorsActivity;
+import com.example.mido.medicalemergency.Medicines.MedicineActivity;
 import com.example.mido.medicalemergency.Slider.CPRActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -127,8 +128,8 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
     @OnClick(R.id.medicineImageView)
     void onMedicineClicked() {
-        // until handel ui for log out
-        LogOutFunction();
+        Intent intent = new Intent(this, MedicineActivity.class);
+        startActivity(intent);
     }
 
 

@@ -46,8 +46,10 @@
         <activity
             android:name=".Doctors.DoctorsActivity"
             android:label="@string/title_activity_home_acrivity" />
-        <activity android:name=".Slider.CPRActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".Slider.CPRActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Medicines.MedicineActivity"></activity>
     </application>
 
 </manifest>
