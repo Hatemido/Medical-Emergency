@@ -3,11 +3,6 @@
   <component name="WizardSettings">
     <option name="children">
       <map>
-        <entry key="imageWizard">
-          <value>
-            <PersistentState />
-          </value>
-        </entry>
         <entry key="vectorWizard">
           <value>
             <PersistentState>
@@ -16,27 +11,11 @@
                   <entry key="vectorAssetStep">
                     <value>
                       <PersistentState>
-                        <option name="children">
-                          <map>
-                            <entry key="clipartAsset">
-                              <value>
-                                <PersistentState>
-                                  <option name="values">
-                                    <map>
-                                      <entry key="url" value="jar:file:/home/mmh/Downloads/android-studio-ide-182.5264788-linux/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/social/ic_person_black_24dp.xml" />
-                                    </map>
-                                  </option>
-                                </PersistentState>
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_google_plus_logo" />
-                            <entry key="sourceFile" value="$PROJECT_DIR$/../google-plus-logo.svg" />
+                            <entry key="outputName" value="ic_user_md_bold" />
+                            <entry key="sourceFile" value="$PROJECT_DIR$/../../Font Awesome Pro 5.2.0 (WEB + DESKTOP)/fontawesome-pro-5.7.2-ulabs/fontawesome-pro-5.7.2-web-ulabs/svgs/solid/user-md.svg" />
                           </map>
                         </option>
                       </PersistentState>

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".HomeActivity"
+    tools:showIn="@layout/activity_home_activity">
+
+
+   <android.support.constraint.ConstraintLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       <View
+           android:id="@+id/view3"
+           android:layout_width="60dp"
+           android:layout_height="2dp"
+           android:layout_marginTop="8dp"
+           android:background="@color/colorPrimary"
+           app:layout_constraintEnd_toEndOf="@+id/clinicImageView"
+           app:layout_constraintStart_toStartOf="@+id/clinicImageView"
+           app:layout_constraintTop_toBottomOf="@+id/clinicText" />
+
+       <View
+           android:id="@+id/view4"
+           android:layout_width="60dp"
+           android:layout_height="2dp"
+           android:layout_marginTop="8dp"
+           android:background="@color/colorPrimary"
+           app:layout_constraintEnd_toEndOf="@+id/hospitalImageView"
+           app:layout_constraintStart_toStartOf="@+id/hospitalImageView"
+           app:layout_constraintTop_toBottomOf="@+id/hospitalText" />
+
+       <View
+           android:id="@+id/view6"
+           android:layout_width="60dp"
+           android:layout_height="2dp"
+           android:layout_marginTop="8dp"
+           android:background="@color/colorPrimary"
+           app:layout_constraintEnd_toEndOf="@+id/analyticsImageView"
+           app:layout_constraintStart_toStartOf="@+id/analyticsImageView"
+           app:layout_constraintTop_toBottomOf="@+id/analyticsText" />
+
+       <View
+           android:id="@+id/view7"
+           android:layout_width="60dp"
+           android:layout_height="2dp"
+           android:layout_marginTop="8dp"
+           android:background="@color/colorPrimary"
+           app:layout_constraintEnd_toEndOf="@+id/doctorImageView"
+           app:layout_constraintStart_toStartOf="@+id/doctorImageView"
+           app:layout_constraintTop_toBottomOf="@+id/doctorsText" />
+
+       <View
+           android:id="@+id/view2"
+           android:layout_width="2dp"
+           android:layout_height="60dp"
+           android:layout_marginStart="8dp"
+           android:layout_marginLeft="8dp"
+           android:layout_marginTop="16dp"
+           android:layout_marginEnd="8dp"
+           android:layout_marginRight="8dp"
+           android:background="@color/colorPrimary"
+           app:layout_constraintBottom_toBottomOf="@+id/analyticsImageView"
+           app:layout_constraintEnd_toStartOf="@+id/clinicImageView"
+           app:layout_constraintStart_toEndOf="@+id/hospitalImageView"
+           app:layout_constraintTop_toTopOf="@+id/analyticsImageView" />
+
+       <View
+           android:id="@+id/view8"
+           android:layout_width="2dp"
+           android:layout_height="60dp"
+           android:layout_marginStart="8dp"
+           android:layout_marginLeft="8dp"
+           android:layout_marginTop="16dp"
+           android:layout_marginEnd="8dp"
+           android:layout_marginRight="8dp"
+           android:background="@color/colorPrimary"
+           app:layout_constraintBottom_toBottomOf="@+id/cprImageView"
+           app:layout_constraintEnd_toStartOf="@+id/clinicImageView"
+           app:layout_constraintStart_toEndOf="@+id/hospitalImageView"
+           app:layout_constraintTop_toTopOf="@+id/cprImageView" />
+
+       <ImageView
+           android:id="@+id/analyticsImageView"
+           android:layout_width="60dp"
+           android:layout_height="60dp"
+           android:layout_marginTop="8dp"
+           android:src="@drawable/ic_analytics"
+           android:tint="@color/colorAccent"
+           app:layout_constraintEnd_toEndOf="@+id/hospitalImageView"
+           app:layout_constraintStart_toStartOf="@+id/hospitalImageView"
+           app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+       <ImageView
+           android:id="@+id/medicineImageView"
+           android:layout_width="60dp"
+           android:layout_height="60dp"
+           android:layout_marginTop="8dp"
+           android:src="@drawable/ic_capsules"
+           android:tint="@color/colorAccent"
+           app:layout_constraintEnd_toEndOf="@+id/hospitalImageView"
+           app:layout_constraintStart_toStartOf="@+id/hospitalImageView"
+           app:layout_constraintTop_toBottomOf="@+id/view6" />
+
+       <ImageView
+           android:id="@+id/cprImageView"
+           android:layout_width="60dp"
+           android:layout_height="60dp"
+           android:layout_marginTop="8dp"
+           android:src="@drawable/ic_diagnoses"
+           android:tint="@color/colorAccent"
+           app:layout_constraintEnd_toEndOf="@+id/doctorImageView"
+           app:layout_constraintStart_toStartOf="@+id/doctorImageView"
+           app:layout_constraintTop_toBottomOf="@+id/view6" />
+
+       <ImageView
+           android:id="@+id/hospitalImageView"
+           android:layout_width="60dp"
+           android:layout_height="60dp"
+           android:layout_marginEnd="32dp"
+           android:layout_marginRight="32dp"
+           android:layout_marginBottom="8dp"
+           android:src="@drawable/ic_hospital"
+           android:tint="@color/colorAccent"
+           app:layout_constraintBottom_toBottomOf="@+id/clinicImageView"
+           app:layout_constraintEnd_toStartOf="@+id/view"
+           app:layout_constraintTop_toTopOf="@+id/clinicImageView" />
+
+       <ImageView
+           android:id="@+id/clinicImageView"
+           android:layout_width="60dp"
+           android:layout_height="60dp"
+           android:layout_marginStart="32dp"
+           android:layout_marginLeft="32dp"
+           android:layout_marginTop="24dp"
+           android:src="@drawable/ic_clinic_medical"
+           android:tint="@color/colorAccent"
+           app:layout_constraintStart_toEndOf="@+id/view"
+           app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+       <ImageView
+           android:id="@+id/doctorImageView"
+           android:layout_width="60dp"
+           android:layout_height="60dp"
+           android:layout_marginTop="8dp"
+           android:src="@drawable/ic_user_md"
+           android:tint="@color/colorAccent"
+           app:layout_constraintBottom_toBottomOf="@+id/analyticsImageView"
+           app:layout_constraintEnd_toEndOf="@+id/clinicImageView"
+           app:layout_constraintHorizontal_bias="0.0"
+           app:layout_constraintStart_toStartOf="@+id/clinicImageView"
+           app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+       <View
+           android:id="@+id/view"
+           android:layout_width="2dp"
+           android:layout_height="60dp"
+           android:layout_marginStart="8dp"
+           android:layout_marginLeft="8dp"
+           android:layout_marginTop="16dp"
+           android:layout_marginEnd="8dp"
+           android:layout_marginRight="8dp"
+           android:background="@color/colorPrimary"
+           app:layout_constraintBottom_toBottomOf="@+id/clinicImageView"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toTopOf="@+id/clinicImageView" />
+
+       <ImageView
+           android:id="@+id/imageView3"
+           android:layout_width="wrap_content"
+           android:layout_height="150dp"
+           android:layout_marginStart="8dp"
+           android:layout_marginLeft="8dp"
+           android:layout_marginEnd="8dp"
+           android:layout_marginRight="8dp"
+           android:scaleType="centerCrop"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toTopOf="parent"
+           android:src="@drawable/baner" />
+
+       <TextView
+           android:textStyle="bold"
+           android:id="@+id/hospitalText"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="8dp"
+           android:text="Hospitals"
+           app:layout_constraintEnd_toEndOf="@+id/hospitalImageView"
+           app:layout_constraintStart_toStartOf="@+id/hospitalImageView"
+           app:layout_constraintTop_toBottomOf="@+id/hospitalImageView" />
+
+       <TextView
+           android:textStyle="bold"
+           android:id="@+id/clinicText"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="8dp"
+           android:text="Clinics"
+           app:layout_constraintEnd_toEndOf="@+id/clinicImageView"
+           app:layout_constraintStart_toStartOf="@+id/clinicImageView"
+           app:layout_constraintTop_toBottomOf="@+id/clinicImageView" />
+
+       <TextView
+           android:textStyle="bold"
+           android:id="@+id/doctorsText"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="8dp"
+           android:text="Doctors"
+           app:layout_constraintEnd_toEndOf="@+id/doctorImageView"
+           app:layout_constraintStart_toStartOf="@+id/doctorImageView"
+           app:layout_constraintTop_toBottomOf="@+id/doctorImageView" />
+
+       <TextView
+           android:textStyle="bold"
+           android:id="@+id/analyticsText"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="8dp"
+           android:text="Analytics"
+           app:layout_constraintEnd_toEndOf="@+id/analyticsImageView"
+           app:layout_constraintStart_toStartOf="@+id/analyticsImageView"
+           app:layout_constraintTop_toBottomOf="@+id/analyticsImageView" />
+
+       <TextView
+           android:id="@+id/analyticsText2"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="8dp"
+           android:text="Medicine"
+           android:textStyle="bold"
+           app:layout_constraintEnd_toEndOf="@+id/analyticsImageView"
+           app:layout_constraintStart_toStartOf="@+id/analyticsImageView"
+           app:layout_constraintTop_toBottomOf="@+id/medicineImageView" />
+
+       <TextView
+           android:id="@+id/analyticsText3"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="8dp"
+           android:text="CPR"
+           android:textStyle="bold"
+           app:layout_constraintEnd_toEndOf="@+id/cprImageView"
+           app:layout_constraintStart_toStartOf="@+id/cprImageView"
+           app:layout_constraintTop_toBottomOf="@+id/medicineImageView" />
+   </android.support.constraint.ConstraintLayout>
+</ScrollView>
