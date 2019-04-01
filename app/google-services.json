@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "858561154665",
+    "firebase_url": "https://medical-emergency-c6894.firebaseio.com",
+    "project_id": "medical-emergency-c6894",
+    "storage_bucket": "medical-emergency-c6894.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:858561154665:android:31fd11c7cd8c7af9",
+        "android_client_info": {
+          "package_name": "com.example.mido.medicalemergency"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "858561154665-v5jkrlutn132dm5hhfup3ns7bfi6gfti.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2P-1WtDFxlZj7gY800XaxyipllCZ8kiE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
