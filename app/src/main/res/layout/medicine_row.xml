@@ -84,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="$60"
-            android:textColor="@android:color/red"
+            android:textColor="@color/colorPrimary"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"

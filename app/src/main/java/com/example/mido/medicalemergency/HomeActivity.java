@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.example.mido.medicalemergency.Doctors.DoctorsActivity;
+import com.example.mido.medicalemergency.Medicines.MedicineActivity;
 import com.example.mido.medicalemergency.Slider.CPRActivity;
 
 import butterknife.ButterKnife;
@@ -57,6 +58,8 @@ public class HomeActivity extends AppCompatActivity {
 
     @OnClick(R.id.medicineImageView)
     void onMedicineClicked() {
+        Intent intent = new Intent(this, MedicineActivity.class);
+        startActivity(intent);
     }
 
 
