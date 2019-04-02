@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.mido.medicalemergency.Models.User;
@@ -55,10 +56,10 @@ public class DoctorDescriptionActivity extends AppCompatActivity {
     String mUid;
     DatabaseReference reference;
     private DialogPlus dialog;
-    private User userdatafordialog=null;
+    private User userdatafordialog = null;
 
-    private ImageView save,close;
-    private TextInputEditText name,information,number1,number2,addres;
+    private ImageView save, close;
+    private TextInputEditText name, information, number1, number2, addres;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,16 +71,16 @@ public class DoctorDescriptionActivity extends AppCompatActivity {
         dialog = DialogPlus.newDialog(this)
                 .setCancelable(true)
                 .setContentHolder(new ViewHolder(R.layout.dialog_layout))
-                .setExpanded(true,1000)  // This will enable the expand feature, (similar to android L share dialog)
+                .setExpanded(true, 1000)  // This will enable the expand feature, (similar to android L share dialog)
                 .create();
 
-        save= (ImageView) dialog.findViewById(R.id.save);
-        close=(ImageView) dialog.findViewById(R.id.cancel);
-        name=(TextInputEditText) dialog.findViewById(R.id.name);
-        information=(TextInputEditText) dialog.findViewById(R.id.information);
-        number1=(TextInputEditText) dialog.findViewById(R.id.number1);
-        number2=(TextInputEditText) dialog.findViewById(R.id.number2);
-        addres=(TextInputEditText) dialog.findViewById(R.id.location);
+        save = (ImageView) dialog.findViewById(R.id.save);
+        close = (ImageView) dialog.findViewById(R.id.cancel);
+        name = (TextInputEditText) dialog.findViewById(R.id.name);
+        information = (TextInputEditText) dialog.findViewById(R.id.information);
+        number1 = (TextInputEditText) dialog.findViewById(R.id.number1);
+        number2 = (TextInputEditText) dialog.findViewById(R.id.number2);
+        addres = (TextInputEditText) dialog.findViewById(R.id.location);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,30 +101,29 @@ public class DoctorDescriptionActivity extends AppCompatActivity {
     }
 
     private void updatedata() {
-        String stname,stinformation,stnumber1,stnumber2,staddres;
-        Map<String,Object> map = new HashMap<>();
+        String stname, stinformation, stnumber1, stnumber2, staddres;
+        Map<String, Object> map = new HashMap<>();
 
-        stname=name.getText().toString().trim();
-        stinformation=information.getText().toString().trim();
-        stnumber1=number1.getText().toString().trim();
-        stnumber2=number2.getText().toString().trim();
-        staddres=addres.getText().toString().trim();
+        stname = name.getText().toString().trim();
+        stinformation = information.getText().toString().trim();
+        stnumber1 = number1.getText().toString().trim();
+        stnumber2 = number2.getText().toString().trim();
+        staddres = addres.getText().toString().trim();
 
-        if(!stname.isEmpty()){
-            map.put("name",stname);
+        if (!stname.isEmpty()) {
+            map.put(Consts.NAME, stname);
         }
-
-        if(!stinformation.isEmpty()){
-            map.put("doctorInfo",stinformation);
+        if (!stinformation.isEmpty()) {
+            map.put(Consts.INFORMATION, stinformation);
         }
-        if(!stnumber1.isEmpty()){
-            map.put("phone1",stnumber1);
+        if (!stnumber1.isEmpty()) {
+            map.put(Consts.NUMBER1, stnumber1);
         }
-        if(!stnumber2.isEmpty()){
-            map.put("phone2",stnumber2);
+        if (!stnumber2.isEmpty()) {
+            map.put(Consts.NUMBER2, stnumber2);
         }
-        if(!staddres.isEmpty()){
-            map.put("location",staddres);
+        if (!staddres.isEmpty()) {
+            map.put(Consts.LOCATION, staddres);
         }
 
         reference.child(Consts.USERS).child(mUid).updateChildren(map);
@@ -158,9 +158,9 @@ public class DoctorDescriptionActivity extends AppCompatActivity {
     }
 
     private void updateUI(User user) {
-        userdatafordialog=user;
+        userdatafordialog = user;
         doctorName.setText(user.getName());
-        doctorInfo.setText(user.getDoctorInfo()!=null?user.getDoctorInfo():"");
+        doctorInfo.setText(user.getDoctorInfo() != null ? user.getDoctorInfo() : "");
         phoneNumber.setText(user.getPhone1() != null ? user.getPhone1() : "");
         phoneNumber2.setText(user.getPhone2() != null ? user.getPhone2() : "");
         location.setText(user.getLocation() != null ? user.getLocation() : "");
@@ -170,17 +170,22 @@ public class DoctorDescriptionActivity extends AppCompatActivity {
         }
     }
 
-    private void updateDialogData(){
-        name.setText(userdatafordialog.getName() != null ? userdatafordialog.getName():"");
-        information.setText(userdatafordialog.getDoctorInfo()!=null?userdatafordialog.getDoctorInfo():"");
+    private void updateDialogData() {
+        name.setText(userdatafordialog.getName() != null ? userdatafordialog.getName() : "");
+        information.setText(userdatafordialog.getDoctorInfo() != null ? userdatafordialog.getDoctorInfo() : "");
         number1.setText(userdatafordialog.getPhone1() != null ? userdatafordialog.getPhone1() : "");
         number2.setText(userdatafordialog.getPhone2() != null ? userdatafordialog.getPhone2() : "");
         addres.setText(userdatafordialog.getLocation() != null ? userdatafordialog.getLocation() : "");
+
     }
 
     @OnClick(R.id.edit)
-    void edit(){
-        updateDialogData();
-        dialog.show();
+    void edit() {
+        if (userdatafordialog != null) {
+            updateDialogData();
+            dialog.show();
+        }else{
+            Toast.makeText(this,"wait loading ......",Toast.LENGTH_LONG).show();
+        }
     }
 }
