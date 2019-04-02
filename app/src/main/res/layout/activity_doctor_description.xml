@@ -22,6 +22,31 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="location ......"
+                android:textColor="#d1d1d1"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@+id/location_ic2"
+                app:layout_constraintStart_toEndOf="@+id/location_ic2"
+                app:layout_constraintTop_toTopOf="@+id/location_ic2" />
+
+            <ImageView
+                android:id="@+id/location_ic2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:padding="4dp"
+                android:src="@drawable/ic_location"
+                android:tint="#d1d1d1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/doctor_name"
+                app:layout_constraintTop_toBottomOf="@+id/doctor_name" />
+
             <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/doctor_photo"
                 android:layout_width="120dp"
@@ -44,29 +69,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="name"
+                android:text="User Name"
                 android:textColor="#FDFDFD"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/doctor_photo" />
-
-            <TextView
-                android:id="@+id/description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="18dp"
-                android:text="description"
-                android:textColor="#FDFDFD"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/doctor_name" />
 
 
         </android.support.constraint.ConstraintLayout>
@@ -87,10 +96,10 @@
         <TextView
             android:id="@+id/doctor_info"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="25dp"
             android:layout_marginStart="13dp"
-            android:textSize="15sp"
             android:text="some information about the docgtor ....."
+            android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -107,11 +116,10 @@
             app:layout_constraintTop_toBottomOf="@+id/doctor_info" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/medicinePrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:text="Contact"
             android:textColor="@color/dark_gray"
             android:textSize="20sp"
@@ -127,7 +135,7 @@
             android:padding="4dp"
             android:src="@drawable/ic_call_with_color"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintTop_toBottomOf="@+id/medicinePrice" />
 
         <ImageView
             android:id="@+id/cal_ic_2"
@@ -140,49 +148,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cal_ic_1" />
 
-        <ImageView
-            android:id="@+id/location_ic"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="13dp"
-            android:layout_marginTop="5dp"
-            android:padding="4dp"
-            android:src="@drawable/ic_location"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cal_ic_2" />
-
-
-        <TextView
-            android:id="@+id/location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="13dp"
-            android:text="location ......"
-            android:textSize="15sp"
-            app:layout_constraintStart_toEndOf="@+id/location_ic"
-            app:layout_constraintTop_toBottomOf="@+id/phone_number_2" />
 
         <TextView
             android:id="@+id/phone_number_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="11dp"
             android:text="number1"
             android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/cal_ic_1"
             app:layout_constraintStart_toEndOf="@+id/cal_ic_1"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            app:layout_constraintTop_toTopOf="@+id/cal_ic_1" />
+
         <TextView
             android:id="@+id/phone_number_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="14dp"
             android:text="number2"
             android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/cal_ic_2"
             app:layout_constraintStart_toEndOf="@+id/cal_ic_2"
-            app:layout_constraintTop_toBottomOf="@+id/phone_number_1" />
+            app:layout_constraintTop_toTopOf="@+id/cal_ic_2" />
 
     </android.support.constraint.ConstraintLayout>
 

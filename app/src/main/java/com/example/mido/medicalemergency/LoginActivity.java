@@ -7,26 +7,28 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.mido.medicalemergency.Models.User;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.kaopiz.kprogresshud.KProgressHUD;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,14 +78,14 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     @OnClick(R.id.login_with_google_btn)
-    void gmailLogin(){
+    void gmailLogin() {
         Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
         startActivityForResult(intent, GOOGLE_REQUEST);
     }
 
 
     @OnClick(R.id.login_but)
-    void emailLogin(){
+    void emailLogin() {
         String mail = mailInput.getText().toString();
         String password = passwordInput.getText().toString();
         if (mail.trim().equals("") || password.trim().equals("")) {
@@ -126,7 +128,15 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
         }
     }
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+
+    private void firebaseAuthWithGoogle(final GoogleSignInAccount acct) {
+        KProgressHUD.create(this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("Please wait")
+                .setCancellable(true)
+                .setAnimationSpeed(2)
+                .setDimAmount(0.5f)
+                .show();
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
@@ -136,17 +146,39 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
 
-                           openHomeActivity();
+                            saveUser(task.getResult().getUser());
                         } else {
                             Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             // If sign in fails, display a message to the user.
 
                         }
 
+
                     }
                 });
+
+
     }
 
+    private void saveUser(FirebaseUser currentUser) {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        reference.keepSynced(true);
+        reference.child(Consts.USERS)
+                .child(currentUser.getUid())
+                .setValue(
+                        new User(currentUser.getDisplayName()
+                                , currentUser.getEmail()
+                                , currentUser.getPhotoUrl().toString()
+                                , null
+                                , null
+                                , null, null, null)).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                openHomeActivity();
+                KProgressHUD.create(LoginActivity.this).dismiss();
+            }
+        });
+    }
 
 
     private void openHomeActivity() {

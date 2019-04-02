@@ -54,6 +54,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:16.1.0'
     implementation 'com.google.firebase:firebase-database:16.1.0'
     implementation 'com.google.firebase:firebase-auth:16.2.0'
+    // Dialog Lib
+    implementation 'com.orhanobut:dialogplus:1.11@aar'
+    // loading dialog
+    implementation 'com.kaopiz:kprogresshud:1.2.0'
+
 
 
 

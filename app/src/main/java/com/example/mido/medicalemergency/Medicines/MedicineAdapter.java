@@ -3,11 +3,14 @@ package com.example.mido.medicalemergency.Medicines;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.mido.medicalemergency.GlideApp;
 import com.example.mido.medicalemergency.R;
 
 import java.util.List;
@@ -35,7 +38,7 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.Medici
 
     @Override
     public void onBindViewHolder(@NonNull MedicineViewHolder holder, int position) {
-//        holder.bind(position);
+        holder.bind(position);
     }
 
     @Override
@@ -50,8 +53,12 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.Medici
 
         @BindView(R.id.medicineName)
         TextView medicineNameTextView;
-        @BindView(R.id.medicineDescription)
-        TextView medicineDescriptionTextView;
+        @BindView(R.id.medicineRate)
+        TextView medicineRateTextView;
+        @BindView(R.id.medicinePrice)
+        TextView medicinePriceTextView;
+        @BindView(R.id.medicineImageView)
+        ImageView medicineImageView;
         public MedicineViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -61,7 +68,12 @@ public class MedicineAdapter extends RecyclerView.Adapter<MedicineAdapter.Medici
         void bind(int position) {
             Medicine medicine = medicineList.get(position);
             medicineNameTextView.setText(medicine.getName());
-            medicineDescriptionTextView.setText(medicine.getDescription());
+            medicineRateTextView.setText(medicine.getRate()+"");
+            medicinePriceTextView.setText("$"+medicine.getPrice());
+            GlideApp.with(mContext)
+                    .load(medicine.getImage())
+                    .into(medicineImageView);
+
         }
 
         @Override

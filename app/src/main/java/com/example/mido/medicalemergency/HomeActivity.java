@@ -37,6 +37,10 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.example.mido.medicalemergency.Consts.ANALYTICS;
+import static com.example.mido.medicalemergency.Consts.CLINICS;
+import static com.example.mido.medicalemergency.Consts.HOSPITALS;
+
 public class HomeActivity extends AppCompatActivity  {
 
     @BindView(R.id.drawer_layout)
@@ -148,6 +152,7 @@ public class HomeActivity extends AppCompatActivity  {
     @OnClick(R.id.hospitalImageView)
      void onHospitalsClicked(){
         Intent intent = new Intent(this, MapsActivity.class);
+        intent.setAction(HOSPITALS);
         startActivity(intent);
 
     }
@@ -155,12 +160,14 @@ public class HomeActivity extends AppCompatActivity  {
     @OnClick(R.id.clinicImageView)
     void onClinicClicked(){
         Intent intent = new Intent(this, MapsActivity.class);
+        intent.setAction(CLINICS);
         startActivity(intent);
     }
 
     @OnClick(R.id.analyticsImageView)
     void onAnalyticsClicked(){
         Intent intent = new Intent(this, MapsActivity.class);
+        intent.setAction(ANALYTICS);
         startActivity(intent);
     }
 

@@ -1,12 +1,19 @@
 package com.example.mido.medicalemergency.Medicines;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.example.mido.medicalemergency.Consts;
 import com.example.mido.medicalemergency.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,14 +33,29 @@ public class MedicineActivity extends AppCompatActivity implements MedicineAdapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medicine);
         ButterKnife.bind(this);
-        medicineList = new ArrayList<>();
-        medicineList.add(new Medicine());
-        medicineList.add(new Medicine());
-        medicineList.add(new Medicine());
-        medicineList.add(new Medicine());
-        medicineList.add(new Medicine());
-        setMedicineRecyclerView();
+      getMedicines();
+    }
 
+    void getMedicines() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        reference.keepSynced(true);
+        reference.child(Consts.MEIDINCES).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                medicineList = new ArrayList<>();
+                for (DataSnapshot childSnap : dataSnapshot.getChildren()) {
+                    Medicine medicine = childSnap.getValue(Medicine.class);
+                    medicine.setId(childSnap.getKey());
+                    medicineList.add(medicine);
+                }
+                setMedicineRecyclerView();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 
