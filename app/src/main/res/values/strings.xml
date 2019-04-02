@@ -15,5 +15,12 @@
     <string name="location">Location</string>
     <string name="information">information</string>
     <string name="Phone_number">Phone Number</string>
+    <string name="choose_type">Choose Type</string>
+
+
+    <string-array name="types">
+        <item>Doctor</item>
+        <item>Nurse</item>
+    </string-array>
 
 </resources>

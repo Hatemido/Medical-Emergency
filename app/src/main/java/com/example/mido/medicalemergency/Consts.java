@@ -9,4 +9,5 @@ public class Consts {
     public static final String HOSPITALS = "Hospitals";
     public static final String CLINICS = "Clinics";
     public static final String ANALYTICS = "Analytics";
+    public static final String DOCTOR = "Doctor";
 }

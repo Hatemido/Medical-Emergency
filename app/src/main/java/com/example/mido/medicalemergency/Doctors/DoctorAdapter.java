@@ -6,8 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.request.RequestOptions;
+import com.example.mido.medicalemergency.GlideApp;
+import com.example.mido.medicalemergency.Models.User;
 import com.example.mido.medicalemergency.R;
 
 import java.util.List;
@@ -18,10 +22,10 @@ import butterknife.ButterKnife;
 public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorViewHolder> {
 
     Context context;
-    List<Doctor> doctorsList;
+    List<User> doctorsList;
     OnDoctorClickListener mOnDoctorClickListener;
 
-    public DoctorAdapter(Context context, List<Doctor> doctorsList, OnDoctorClickListener mOnDoctorClickListener) {
+    public DoctorAdapter(Context context, List<User> doctorsList, OnDoctorClickListener mOnDoctorClickListener) {
         this.context = context;
         this.doctorsList = doctorsList;
         this.mOnDoctorClickListener = mOnDoctorClickListener;
@@ -35,7 +39,7 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorView
 
     @Override
     public void onBindViewHolder(@NonNull DoctorViewHolder holder, int position) {
-//        holder.bind(position);
+        holder.bind(position);
     }
 
     @Override
@@ -52,6 +56,8 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorView
         TextView doctorNameTextView;
         @BindView(R.id.doctorType)
         TextView doctorTypeTextView;
+        @BindView(R.id.doctorImage)
+        ImageView doctorImageView;
         public DoctorViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
@@ -59,14 +65,20 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorView
         }
 
         void bind(int position) {
-            Doctor doctor = doctorsList.get(position);
-            doctorNameTextView.setText(doctor.getDoctorName());
+            User doctor = doctorsList.get(position);
+            doctorNameTextView.setText(doctor.getName());
             doctorTypeTextView.setText(doctor.getType());
+            if(doctor.getImage()!=null){
+                GlideApp.with(context)
+                        .load(doctor.getImage())
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(doctorImageView);
+            }
         }
 
         @Override
         public void onClick(View view) {
-
+        mOnDoctorClickListener.onDoctorClicked(getAdapterPosition());
         }
     }
 }

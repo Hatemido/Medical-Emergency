@@ -51,7 +51,6 @@ public class DoctorDescriptionActivity extends AppCompatActivity {
     @BindView(R.id.phone_number_1)
     TextView phoneNumber;
 
-
     FirebaseAuth mAuth;
     String mUid;
     DatabaseReference reference;
@@ -158,7 +157,6 @@ public class DoctorDescriptionActivity extends AppCompatActivity {
         });
     }
 
-
     private void updateUI(User user) {
         userdatafordialog=user;
         doctorName.setText(user.getName());
@@ -168,7 +166,7 @@ public class DoctorDescriptionActivity extends AppCompatActivity {
         location.setText(user.getLocation() != null ? user.getLocation() : "");
 
         if (user.getImage() != null) {
-            Glide.with(this).load(user.getImage()).into(doctorPhoto);
+            GlideApp.with(this).load(user.getImage()).into(doctorPhoto);
         }
     }
 
