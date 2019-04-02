@@ -9,5 +9,7 @@
     <string name="sign_up">Sign Up</string>
     <string name="login_with_google">LogIn With Google</string>
     <string name="e_mail">E_Mail</string>
+    <string name="navbar_open">open navbar</string>
+    <string name="navbar_close">close navbar</string>
 
 </resources>

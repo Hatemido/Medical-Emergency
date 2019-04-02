@@ -4,10 +4,19 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.mido.medicalemergency.Doctors.DoctorsActivity;
 import com.example.mido.medicalemergency.Medicines.MedicineActivity;
 import com.example.mido.medicalemergency.Slider.CPRActivity;
@@ -17,16 +26,27 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleApiClient googleApiClient;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawer;
+
+    private TextView navUsername;
+    private CircleImageView userImage;
+
+    @BindView(R.id.nv)
+    NavigationView nv;
 
     private String name ="", mail="" ;
     private Uri imguri = null;
@@ -39,6 +59,39 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
 
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,
+                R.string.navbar_open , R.string.navbar_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        View headerView = nv.getHeaderView(0);
+        navUsername = headerView.findViewById(R.id.doctor_name);
+        userImage = headerView.findViewById(R.id.doctor_photo);
+
+        nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                switch(id)
+                {
+                    case R.id.profile:
+                        startprofileactivity();
+                        break;
+                    case R.id.LogOut:
+                        LogOutFunction();
+                        break;
+                    case R.id.about:
+                        Toast.makeText(HomeActivity.this, "about",Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        return true;
+                }
+                return false;
+            }
+        });
+
+
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -50,15 +103,30 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
     }
 
+    private void startprofileactivity() {
+        Toast.makeText(HomeActivity.this, "profile",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(HomeActivity.this , DoctorDescriptionActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(drawer.isDrawerOpen(GravityCompat.START)){
+            drawer.closeDrawer(GravityCompat.START);
+        }else{
+            super.onBackPressed();
+        }
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
 
-//        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
-//        if(opr.isDone()){
-//            GoogleSignInResult result=opr.get();
-//            handleSignInResult(result);
-//        }
+        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
+        if(opr.isDone()){
+            GoogleSignInResult result=opr.get();
+            handleSignInResult(result);
+        }
 
     }
 
@@ -68,6 +136,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
             public void onResult(@NonNull Status status) {
                 if(status.isSuccess()){
                     FirebaseAuth.getInstance().signOut();
+                    Toast.makeText(HomeActivity.this, "you are loged out",Toast.LENGTH_SHORT).show();
                     goLogInActivity();
                 }else{
                     Toast.makeText(getApplicationContext() , "error while Log out" , Toast.LENGTH_SHORT).show();
@@ -87,7 +156,10 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         mail=email;
         imguri=s;
 
-        Toast.makeText(this, name , Toast.LENGTH_SHORT).show();
+        if(imguri!=null){
+            Glide.with(this).load(imguri).into(userImage);
+        }
+        navUsername.setText(name);
     }
 
     private void handleSignInResult(GoogleSignInResult result) {
