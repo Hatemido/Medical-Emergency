@@ -82,7 +82,7 @@ public class DoctorDescriptionActivity extends AppCompatActivity {
         doctorName.setText(user.getName());
         doctorInfo.setText(user.getDoctorInfo()!=null?user.getDoctorInfo():"");
         phoneNumber.setText(user.getPhone1() != null ? user.getPhone1() : "");
-        phoneNumber2.setText(user.getPhone1() != null ? user.getPhone1() : "");
+        phoneNumber2.setText(user.getPhone1() != null ? user.getPhone2() : "");
         location.setText(user.getLocation() != null ? user.getLocation() : "");
 
         if (user.getImage() != null) {

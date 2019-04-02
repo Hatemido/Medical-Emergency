@@ -11,5 +11,12 @@
     <string name="e_mail">E_Mail</string>
     <string name="navbar_open">open navbar</string>
     <string name="navbar_close">close navbar</string>
+    <string name="choose_type">Choose Type</string>
+
+
+    <string-array name="types">
+        <item>Doctor</item>
+        <item>Nurse</item>
+    </string-array>
 
 </resources>
