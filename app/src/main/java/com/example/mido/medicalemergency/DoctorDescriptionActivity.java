@@ -55,7 +55,7 @@ public class DoctorDescriptionActivity extends AppCompatActivity {
     String mUid;
     DatabaseReference reference;
     private DialogPlus dialog;
-    private User userdatafordialog;
+    private User userdatafordialog=null;
 
     private ImageView save,close;
     private TextInputEditText name,information,number1,number2,addres;
@@ -171,7 +171,7 @@ public class DoctorDescriptionActivity extends AppCompatActivity {
     }
 
     private void updateDialogData(){
-        name.setText(userdatafordialog.getName());
+        name.setText(userdatafordialog.getName() != null ? userdatafordialog.getName():"");
         information.setText(userdatafordialog.getDoctorInfo()!=null?userdatafordialog.getDoctorInfo():"");
         number1.setText(userdatafordialog.getPhone1() != null ? userdatafordialog.getPhone1() : "");
         number2.setText(userdatafordialog.getPhone2() != null ? userdatafordialog.getPhone2() : "");
