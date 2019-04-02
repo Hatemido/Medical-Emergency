@@ -11,5 +11,9 @@
     <string name="e_mail">E_Mail</string>
     <string name="navbar_open">open navbar</string>
     <string name="navbar_close">close navbar</string>
+    <string name="name">Name</string>
+    <string name="location">Location</string>
+    <string name="information">information</string>
+    <string name="Phone_number">Phone Number</string>
 
 </resources>

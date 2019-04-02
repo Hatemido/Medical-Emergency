@@ -52,9 +52,6 @@ public class HomeActivity extends AppCompatActivity  {
     @BindView(R.id.nv)
     NavigationView mNavigationView;
 
-    private String name ="", mail="" ;
-    private Uri imguri = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
