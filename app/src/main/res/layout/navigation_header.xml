@@ -14,7 +14,6 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:padding="5dp"
-        android:src="@drawable/baner"
         app:civ_border_color="@color/text_view_color"
         app:civ_border_width="1dp"
         app:layout_constraintEnd_toEndOf="parent"

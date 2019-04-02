@@ -10,9 +10,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,15 +30,15 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class HomeActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+public class HomeActivity extends AppCompatActivity  {
 
-    private GoogleApiClient googleApiClient;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
 
@@ -46,7 +46,7 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
     private CircleImageView userImage;
 
     @BindView(R.id.nv)
-    NavigationView nv;
+    NavigationView mNavigationView;
 
     private String name ="", mail="" ;
     private Uri imguri = null;
@@ -58,24 +58,27 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
+        //
+
+
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,drawer,toolbar,
                 R.string.navbar_open , R.string.navbar_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        View headerView = nv.getHeaderView(0);
+        View headerView = mNavigationView.getHeaderView(0);
         navUsername = headerView.findViewById(R.id.doctor_name);
         userImage = headerView.findViewById(R.id.doctor_photo);
 
-        nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 switch(id)
                 {
                     case R.id.profile:
-                        startprofileactivity();
+                        startProfileActivity();
                         break;
                     case R.id.LogOut:
                         LogOutFunction();
@@ -92,18 +95,11 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
 
 
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
 
-        googleApiClient=new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, this)
-                .addApi(Auth.GOOGLE_SIGN_IN_API ,  gso)
-                .build();
 
     }
 
-    private void startprofileactivity() {
+    private void startProfileActivity() {
         Toast.makeText(HomeActivity.this, "profile",Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(HomeActivity.this , DoctorDescriptionActivity.class);
         startActivity(intent);
@@ -121,28 +117,17 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
     @Override
     protected void onStart() {
         super.onStart();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if(auth.getCurrentUser()!=null){
+            setUserData(auth.getCurrentUser());
 
-        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
-        if(opr.isDone()){
-            GoogleSignInResult result=opr.get();
-            handleSignInResult(result);
         }
 
     }
 
     void LogOutFunction(){
-        Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
-            @Override
-            public void onResult(@NonNull Status status) {
-                if(status.isSuccess()){
-                    FirebaseAuth.getInstance().signOut();
-                    Toast.makeText(HomeActivity.this, "you are loged out",Toast.LENGTH_SHORT).show();
-                    goLogInActivity();
-                }else{
-                    Toast.makeText(getApplicationContext() , "error while Log out" , Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        FirebaseAuth.getInstance().signOut();
+        goLogInActivity();
     }
 
     private void goLogInActivity() {
@@ -151,21 +136,14 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
         startActivity(intent);
     }
 
-    private void setdata(String displayName, String email, Uri s) {
-        name=displayName;
-        mail=email;
-        imguri=s;
-
-        if(imguri!=null){
-            Glide.with(this).load(imguri).into(userImage);
+    private void setUserData(FirebaseUser  currentUser) {
+        if(currentUser.getPhotoUrl()!=null){
+            Glide.with(this).load(currentUser.getPhotoUrl()).into(userImage);
         }
-        navUsername.setText(name);
+        navUsername.setText(currentUser.getDisplayName());
     }
 
-    private void handleSignInResult(GoogleSignInResult result) {
-        GoogleSignInAccount account = result.getSignInAccount();
-        setdata(account.getDisplayName() , account.getEmail(),account.getPhotoUrl());
-    }
+
 
     @OnClick(R.id.hospitalImageView)
      void onHospitalsClicked(){
@@ -205,8 +183,4 @@ public class HomeActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
 
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(this , connectionResult.getErrorMessage() ,Toast.LENGTH_LONG ).show();
-    }
 }
