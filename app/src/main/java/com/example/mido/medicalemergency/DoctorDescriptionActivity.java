@@ -176,8 +176,13 @@ public class DoctorDescriptionActivity extends AppCompatActivity {
         userdatafordialog = user;
         doctorName.setText(user.getName());
         doctorInfo.setText(user.getDoctorInfo() != null ? user.getDoctorInfo() : "");
-        phoneNumber.setText(user.getPhone1() != null ? user.getPhone1() : "");
-        phoneNumber2.setText(user.getPhone2() != null ? user.getPhone2() : "");
+        phoneNumber.setText(user.getPhone1() != null ? user.getPhone1() : "No phone number please enter it.");
+        if(user.getPhone2() != null){
+            phoneNumber2.setText(user.getPhone2());
+        }else{
+            phoneNumber2.setText("");
+            findViewById(R.id.cal_ic_2).setVisibility(View.GONE);
+        }
         location.setText(user.getLocation() != null ? user.getLocation() : "");
 
         if (user.getImage() != null) {
@@ -191,7 +196,6 @@ public class DoctorDescriptionActivity extends AppCompatActivity {
         number1.setText(userdatafordialog.getPhone1() != null ? userdatafordialog.getPhone1() : "");
         number2.setText(userdatafordialog.getPhone2() != null ? userdatafordialog.getPhone2() : "");
         addres.setText(userdatafordialog.getLocation() != null ? userdatafordialog.getLocation() : "");
-
     }
 
     @OnClick(R.id.edit)
