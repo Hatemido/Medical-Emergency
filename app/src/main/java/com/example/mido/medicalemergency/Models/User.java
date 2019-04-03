@@ -26,6 +26,12 @@ public class User {
         this.doctorInfo = doctorInfo;
     }
 
+    public User(String name, String email, String image) {
+        this.name = name;
+        this.email = email;
+        this.image = image;
+    }
+
     public void setDoctorid(String doctorid) {
         this.doctorid = doctorid;
     }

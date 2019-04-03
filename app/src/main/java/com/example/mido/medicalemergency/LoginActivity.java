@@ -177,9 +177,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         new User(currentUser.getDisplayName()
                                 , currentUser.getEmail()
                                 , currentUser.getPhotoUrl().toString()
-                                , null
-                                , null
-                                , null, null, null)).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        )).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 openHomeActivity();
