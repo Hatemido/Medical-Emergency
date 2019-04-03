@@ -100,7 +100,7 @@ public class DoctorDescriptionActivity extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updatedata();
+                updateData();
                 dialog.dismiss();
             }
         });
@@ -115,7 +115,7 @@ public class DoctorDescriptionActivity extends AppCompatActivity {
 
     }
 
-    private void updatedata() {
+    private void updateData() {
         String stname, stinformation, stnumber1, stnumber2, staddres;
         Map<String, Object> map = new HashMap<>();
 
@@ -181,7 +181,7 @@ public class DoctorDescriptionActivity extends AppCompatActivity {
         location.setText(user.getLocation() != null ? user.getLocation() : "");
 
         if (user.getImage() != null) {
-            GlideApp.with(this).load(user.getImage()).into(doctorPhoto);
+            GlideApp.with(getApplicationContext()).load(user.getImage()).into(doctorPhoto);
         }
     }
 

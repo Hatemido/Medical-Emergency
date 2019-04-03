@@ -8,8 +8,19 @@
 
 
     <ImageView
-        android:background="@drawable/baner"
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+
+        android:src="@drawable/background" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha=".3"
+        android:background="#000"
+        android:scaleType="centerCrop" />
 
 </android.support.constraint.ConstraintLayout>

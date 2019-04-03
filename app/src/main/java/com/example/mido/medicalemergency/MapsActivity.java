@@ -114,7 +114,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(hospital.getLatitude(), hospital.getLongitude()))
                     .icon(bitmapDescriptorFromVector(this, mark))
-                    .title("Your Location"));
+                    .title(hospital.getName()));
         }
     }
 
@@ -183,7 +183,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         hospitalNameTextView.setText(hospital.getName());
         hospitalPhone1TextView.setText(hospital.getPhone1());
         hospitalPhone2TextView.setText(hospital.getPhone2());
-        GlideApp.with(this)
+        GlideApp.with(getApplicationContext())
                 .load(hospital.getImage())
                 .into(hospitalImage);
         openDirectionsButton.setOnClickListener(new View.OnClickListener() {
@@ -198,12 +198,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void openGoogleMap(double latitude, double longitude) {
-        Uri gmmIntentUri = Uri.parse("google.streetview:cbll="+latitude+","+longitude);
+//        Uri gmmIntentUri = Uri.parse("geo:"+latitude+","+longitude);
+        Uri gmmIntentUri = Uri.parse("google.navigation:q="+latitude+","+longitude);
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
         mapIntent.setPackage("com.google.android.apps.maps");
-
-        startActivity(mapIntent);
-
+        if (mapIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(mapIntent);
+        }
     }
 
     private Hospital getClickedHospital(Marker marker) {

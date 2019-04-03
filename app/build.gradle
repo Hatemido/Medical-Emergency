@@ -9,6 +9,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        renderscriptTargetApi 27 //must match target sdk and build tools
+        renderscriptSupportModeEnabled true
+
     }
     buildTypes {
         release {
@@ -20,6 +24,8 @@ android {
 repositories {
     mavenCentral()
     maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    maven { url 'https://github.com/500px/500px-android-blur/raw/master/releases/' }
+
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -58,6 +64,8 @@ dependencies {
     implementation 'com.orhanobut:dialogplus:1.11@aar'
     // loading dialog
     implementation 'com.kaopiz:kprogresshud:1.2.0'
+    //blur View
+    implementation 'com.fivehundredpx:blurringview:1.0.0'
 
 
 

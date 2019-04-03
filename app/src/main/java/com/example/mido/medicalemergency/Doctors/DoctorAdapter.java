@@ -47,8 +47,9 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorView
         return doctorsList.size();
     }
 
-    interface OnDoctorClickListener{
+    public interface OnDoctorClickListener{
         void onDoctorClicked(int position);
+        void onCallClicked(int position,User user);
     }
 
     class DoctorViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -58,10 +59,19 @@ public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorView
         TextView doctorTypeTextView;
         @BindView(R.id.doctorImage)
         ImageView doctorImageView;
+        @BindView(R.id.callImageView)
+        ImageView callImageView;
+
         public DoctorViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
             itemView.setOnClickListener(this);
+            callImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mOnDoctorClickListener.onCallClicked(getAdapterPosition(),doctorsList.get(getAdapterPosition()));
+                }
+            });
         }
 
         void bind(int position) {

@@ -7,10 +7,13 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.mido.medicalemergency.Models.User;
+import com.fivehundredpx.android.blur.BlurringView;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -54,14 +57,19 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private static final int GOOGLE_REQUEST = 785;
 
     private FirebaseAuth mAuth;
-
-
+    @BindView(R.id.blurring_view)
+     BlurringView mBlurringView;
+    @BindView(R.id.imageView)
+    ImageView blurredView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
+
+        // Give the blurring view a reference to the blurred view.
+        mBlurringView.setBlurredView(blurredView);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -175,13 +183,14 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             @Override
             public void onSuccess(Void aVoid) {
                 openHomeActivity();
-                KProgressHUD.create(LoginActivity.this).dismiss();
+
             }
         });
     }
 
 
     private void openHomeActivity() {
+        KProgressHUD.create(LoginActivity.this).dismiss();
         Intent intent = new Intent(this, HomeActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
