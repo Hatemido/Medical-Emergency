@@ -147,11 +147,14 @@ public class DoctorsActivity extends AppCompatActivity implements DoctorAdapter.
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 user.setType(type);
-                if (!user.getPhone1().isEmpty()) {
+                if (user.getPhone1()!=null) {
                     reference.getRoot().child(DOCTOR).child(currentDoctorUid).setValue(user);
 
                 } else {
                     Toast.makeText(DoctorsActivity.this, "Add your Phone Number in Profile Screen", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(DoctorsActivity.this, DoctorDescriptionActivity.class);
+                    intent.putExtra("userid", currentDoctorUid);
+                    startActivity(intent);
                 }
                 dialog.dismiss();
             }
