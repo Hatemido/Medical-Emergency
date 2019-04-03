@@ -1,5 +1,6 @@
 package com.example.mido.medicalemergency.Doctors;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mido.medicalemergency.Consts;
+import com.example.mido.medicalemergency.DoctorDescriptionActivity;
+import com.example.mido.medicalemergency.HomeActivity;
 import com.example.mido.medicalemergency.Models.User;
 import com.example.mido.medicalemergency.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -57,28 +60,30 @@ public class DoctorsActivity extends AppCompatActivity implements DoctorAdapter.
 
     }
 
-     void getDoctors() {
-         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-         reference.keepSynced(true);
-         reference.child(DOCTOR).addValueEventListener(new ValueEventListener() {
-             @Override
-             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                 doctorList = new ArrayList<>();
-                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                     doctorList.add(childSnapshot.getValue(User.class));
-                 }
-                 setDoctorRecyclerView();
-             }
+    void getDoctors() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        reference.keepSynced(true);
+        reference.child(DOCTOR).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                doctorList = new ArrayList<>();
+                for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
+                    User user=childSnapshot.getValue(User.class);
+                    user.setDoctorid(childSnapshot.getKey());
+                    doctorList.add(user);
+                }
+                setDoctorRecyclerView();
+            }
 
-             @Override
-             public void onCancelled(@NonNull DatabaseError databaseError) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-             }
-         });
+            }
+        });
 
     }
 
-    void setDoctorRecyclerView(){
+    void setDoctorRecyclerView() {
         loadingProgresBar.setVisibility(View.GONE);
         DoctorAdapter adapter = new DoctorAdapter(this, doctorList, this);
         doctorRecyclerView.setAdapter(adapter);
@@ -88,12 +93,15 @@ public class DoctorsActivity extends AppCompatActivity implements DoctorAdapter.
 
     @Override
     public void onDoctorClicked(int position) {
-
+        Intent intent = new Intent(this, DoctorDescriptionActivity.class);
+        intent.putExtra("userid", doctorList.get(position).getDoctorid());
+        startActivity(intent);
     }
 
+
     @OnClick(R.id.fab)
-    void onAddDoctorClicked(){
-         dialog = DialogPlus.newDialog(this)
+    void onAddDoctorClicked() {
+        dialog = DialogPlus.newDialog(this)
                 .setContentHolder(new ViewHolder(R.layout.add_doctor))
                 .setGravity(Gravity.CENTER)
                 .create();
@@ -133,12 +141,12 @@ public class DoctorsActivity extends AppCompatActivity implements DoctorAdapter.
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 user.setType(type);
-               if(!user.getPhone1().isEmpty()){
-                   reference.getRoot().child(DOCTOR).child(currentDoctorUid).setValue(user);
+                if (!user.getPhone1().isEmpty()) {
+                    reference.getRoot().child(DOCTOR).child(currentDoctorUid).setValue(user);
 
-               }else {
-                   Toast.makeText(DoctorsActivity.this, "Add your Phone Number in Profile Screen", Toast.LENGTH_SHORT).show();
-               }
+                } else {
+                    Toast.makeText(DoctorsActivity.this, "Add your Phone Number in Profile Screen", Toast.LENGTH_SHORT).show();
+                }
                 dialog.dismiss();
             }
 

@@ -9,6 +9,7 @@ public class User {
     String location;
     String type;
     String doctorInfo;
+    String doctorid;
 
     public User(){
 
@@ -23,6 +24,14 @@ public class User {
         this.location = location;
         this.type = type;
         this.doctorInfo = doctorInfo;
+    }
+
+    public void setDoctorid(String doctorid) {
+        this.doctorid = doctorid;
+    }
+
+    public String getDoctorid() {
+        return doctorid;
     }
 
     public String getEmail() {

@@ -1,6 +1,7 @@
 package com.example.mido.medicalemergency;
 
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -52,6 +53,9 @@ public class DoctorDescriptionActivity extends AppCompatActivity {
     @BindView(R.id.phone_number_1)
     TextView phoneNumber;
 
+    @BindView(R.id.edit)
+    FloatingActionButton edit;
+
     FirebaseAuth mAuth;
     String mUid;
     DatabaseReference reference;
@@ -66,6 +70,17 @@ public class DoctorDescriptionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_description);
         ButterKnife.bind(this);
+
+        if(getIntent().getStringExtra("userid") != null){
+            if(!getIntent().getStringExtra("userid").equals(FirebaseAuth.getInstance().getUid())){
+                edit.setVisibility(View.GONE);
+            }
+            mUid=getIntent().getStringExtra("userid");
+        }else{
+            mUid=FirebaseAuth.getInstance().getUid();
+        }
+
+        getUserInfo();
 
 
         dialog = DialogPlus.newDialog(this)
@@ -137,7 +152,7 @@ public class DoctorDescriptionActivity extends AppCompatActivity {
         if (mAuth.getCurrentUser() != null) {
             mUid = mAuth.getCurrentUser().getUid();
         }
-        getUserInfo();
+
     }
 
     private void getUserInfo() {
