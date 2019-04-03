@@ -84,9 +84,7 @@ public class DoctorDescriptionActivity extends AppCompatActivity {
 
 
         dialog = DialogPlus.newDialog(this)
-                .setCancelable(true)
                 .setContentHolder(new ViewHolder(R.layout.dialog_layout))
-                .setExpanded(true, 1000)  // This will enable the expand feature, (similar to android L share dialog)
                 .create();
 
         save = (ImageView) dialog.findViewById(R.id.save);

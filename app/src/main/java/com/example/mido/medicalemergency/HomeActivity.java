@@ -11,8 +11,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +33,8 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.ViewHolder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -176,13 +180,62 @@ public class HomeActivity extends AppCompatActivity  {
 
     @OnClick(R.id.cprImageView)
     void onCPRClicked(){
-        Intent intent = new Intent(this, CPRActivity.class);
-        startActivity(intent);
+        final DialogPlus dialog = DialogPlus.newDialog(this)
+                .setContentHolder(new ViewHolder(R.layout.information_options_layout))
+                .setGravity(Gravity.CENTER)
+                .create();
+
+        TextView cpr= (TextView) dialog.findViewById(R.id.option_cpr);
+        cpr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openinformationcpr(true);
+                dialog.dismiss();
+            }
+        });
+
+        ImageView cpr_IMG= (ImageView) dialog.findViewById(R.id.cprImageView);
+        cpr_IMG.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openinformationcpr(true);
+                dialog.dismiss();
+            }
+        });
+
+
+
+        TextView hwf= (TextView) dialog.findViewById(R.id.option_hwf);
+        hwf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openinformationcpr(false);
+                dialog.dismiss();
+            }
+        });
+
+
+        ImageView hwf_IMG= (ImageView) dialog.findViewById(R.id.firstAid);
+        hwf_IMG.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openinformationcpr(false);
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+
     }
 
     @OnClick(R.id.medicineImageView)
     void onMedicineClicked() {
         Intent intent = new Intent(this, MedicineActivity.class);
+        startActivity(intent);
+    }
+
+    void openinformationcpr(boolean type){
+        Intent intent = new Intent(this, CPRActivity.class);
+        intent.putExtra("type",type);
         startActivity(intent);
     }
 

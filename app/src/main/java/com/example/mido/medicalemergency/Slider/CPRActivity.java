@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.mido.medicalemergency.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,8 @@ public class CPRActivity extends AppCompatActivity {
     ImageView nextButton;
     @BindView(R.id.previous)
     ImageView previousButton;
+    List<Integer> views;
+    boolean type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +37,25 @@ public class CPRActivity extends AppCompatActivity {
 
         nextButton.setImageResource(R.drawable.ic_chevron_right);
         previousButton.setImageResource(R.drawable.ic_chevron_left);
-        List<Integer> views = new ArrayList<>();
-        views.add(R.layout.cpr_step_1);
-        views.add(R.layout.cpr_step_2);
-        views.add(R.layout.cpr_step_3);
-        views.add(R.layout.cpr_step_4);
+
+        type = getIntent().getBooleanExtra("type", false);
+
+        views = new ArrayList<>();
+
+        if(type){
+            views.add(R.layout.cpr_step_1);
+            views.add(R.layout.cpr_step_2);
+            views.add(R.layout.cpr_step_3);
+            views.add(R.layout.cpr_step_4);
+        }else{
+            views.add(R.layout.hwf_step_1);
+            views.add(R.layout.hwf_step_2);
+            views.add(R.layout.hwf_step_3);
+            views.add(R.layout.hwf_step_4);
+            views.add(R.layout.hwf_step_5);
+            views.add(R.layout.hwf_step_6);
+        }
+
         SliderAdapter sliderAdapter = new SliderAdapter(this, views);
 
         viewPager.setAdapter(sliderAdapter);
@@ -53,23 +70,13 @@ public class CPRActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                switch (position) {
-                    case 0:
-                        previousButton.setVisibility(View.INVISIBLE);
-                        break;
-
-                    case 1:
-                        previousButton.setVisibility(View.VISIBLE);
-                        nextButton.setImageResource(R.drawable.ic_chevron_right);
-                        break;
-                    case 2:
-                        previousButton.setVisibility(View.VISIBLE);
-                        nextButton.setImageResource(R.drawable.ic_chevron_right);
-                        break;
-
-                    case 3:
-                        nextButton.setImageResource(R.drawable.ic_don);
-                        break;
+                if (position == 0) {
+                    previousButton.setVisibility(View.INVISIBLE);
+                } else if (position == views.size() - 1) {
+                    nextButton.setImageResource(R.drawable.ic_don);
+                } else {
+                    previousButton.setVisibility(View.VISIBLE);
+                    nextButton.setImageResource(R.drawable.ic_chevron_right);
                 }
 
             }
@@ -80,6 +87,7 @@ public class CPRActivity extends AppCompatActivity {
             }
         });
     }
+
     void next() {
         viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
 
@@ -91,7 +99,7 @@ public class CPRActivity extends AppCompatActivity {
     }
 
     public void next(View view) {
-        if (viewPager.getCurrentItem() != 3) {
+        if (viewPager.getCurrentItem() != views.size() - 1) {
             next();
         } else {
             done();
