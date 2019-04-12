@@ -29,8 +29,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.kaopiz.kprogresshud.KProgressHUD;
 
 import butterknife.BindView;
@@ -131,8 +134,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
-                Log.w("Error", "Google sign in failed", e);
-                Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.w("ApiException", "Google sign in failed", e);
+                Toast.makeText(this, "error"+task.getException().getMessage()+e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -165,25 +168,41 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     }
                 });
 
-
     }
 
-    private void saveUser(FirebaseUser currentUser) {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+    private void saveUser(final FirebaseUser currentUser) {
+        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         reference.keepSynced(true);
         reference.child(Consts.USERS)
                 .child(currentUser.getUid())
-                .setValue(
-                        new User(currentUser.getDisplayName()
-                                , currentUser.getEmail()
-                                , currentUser.getPhotoUrl().toString()
-                        )).addOnSuccessListener(new OnSuccessListener<Void>() {
+                .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onSuccess(Void aVoid) {
-                openHomeActivity();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue(User.class)!=null){
+                    openHomeActivity();
+                }else {
+                    reference.child(Consts.USERS)
+                            .child(currentUser.getUid())
+                            .setValue(
+                                    new User(currentUser.getDisplayName()
+                                            , currentUser.getEmail()
+                                            , currentUser.getPhotoUrl().toString()
+                                    )).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            openHomeActivity();
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
+
     }
 
 
